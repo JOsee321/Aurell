@@ -1,0 +1,3 @@
+maaf = "gatau"
+
+print(maaf)

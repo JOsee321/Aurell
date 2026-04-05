@@ -1,0 +1,1111 @@
+/* ===== 1. ROOT & VARIABEL GLOBAL (UPGRADE) ===== */
+:root {
+    --font-primary: 'Inter', sans-serif;
+    
+    /* Variabel untuk Light Mode (Warna Baru) */
+    --color-bg-light: #F7F7F9;
+    --color-sidebar-light: #FFFFFF;
+    --color-text-light: #1D1D1F;
+    --color-text-muted-light: #6E6E73;
+    --color-border-light: #EAEAEB;
+    --color-active-bg-light: #EBF5FF;
+    --color-active-text-light: #007AFF;
+    --color-toggle-bg-light: #EAEAEB;
+
+    /* Variabel untuk Dark Mode (Warna Baru) */
+    --color-bg-dark: #121212;
+    --color-sidebar-dark: #1C1C1E;
+    --color-text-dark: #F5F5F7;
+    --color-text-muted-dark: #86868B;
+    --color-border-dark: #2D2D2F;
+    --color-active-bg-dark: #2A2A2C;
+    --color-active-text-dark: #0A84FF;
+    --color-toggle-bg-dark: #2D2D2F;
+    
+    --color-blue-accent: #007AFF;
+    --color-verified-badge: #007AFF;
+    
+    --sidebar-width: 300px;
+    --radius-small: 8px;
+    --radius-medium: 16px;
+    --radius-large: 20px;
+    
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Menerapkan variabel berdasarkan mode */
+body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-primary);
+}
+
+/* ===== 2. TATA LETAK UTAMA ===== */
+.portfolio-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    min-height: 100vh;
+}
+
+/* ===== 3. SIDEBAR NAVIGASI (KIRI) ===== */
+.sidebar {
+    background-color: var(--color-sidebar-light);
+    border-right: 1px solid var(--color-border-light);
+    padding: 2.5rem;
+    position: fixed;
+    width: var(--sidebar-width);
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.4s ease;
+}
+body.dark-mode .sidebar {
+    background-color: var(--color-sidebar-dark);
+    border-right: 1px solid var(--color-border-dark);
+}
+
+.sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Profile Section */
+.profile-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    border: 4px solid var(--color-border-light);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .profile-avatar {
+    border-color: var(--color-border-dark);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.profile-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+body.dark-mode .profile-name {
+    color: var(--color-text-dark);
+}
+.verified-badge {
+    color: var(--color-verified-badge);
+    font-size: 1.1rem;
+    margin-left: 0.25rem;
+}
+
+/* Theme Toggles (Gaya Segmented Control Baru) */
+.theme-toggle-group {
+    display: flex;
+    background-color: var(--color-toggle-bg-light);
+    border-radius: var(--radius-small);
+    padding: 4px;
+    margin-bottom: 2.5rem;
+}
+body.dark-mode .theme-toggle-group {
+    background-color: var(--color-toggle-bg-dark);
+}
+.theme-btn {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    color: var(--color-text-muted-light);
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px; /* Sedikit lebih kecil dari parent */
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-width: 45px;
+    text-align: center;
+}
+body.dark-mode .theme-btn {
+    color: var(--color-text-muted-dark);
+}
+.theme-btn.active {
+    background-color: var(--color-sidebar-light);
+    color: var(--color-text-light);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .theme-btn.active {
+    background-color: var(--color-sidebar-dark);
+    color: var(--color-text-dark);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigasi Utama */
+.main-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Spasi antar link */
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-small);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted-light);
+    transition: all 0.3s ease;
+}
+body.dark-mode .nav-link {
+    color: var(--color-text-muted-dark);
+}
+.nav-link i {
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+.nav-link:hover:not(.active) {
+    background-color: var(--color-bg-light);
+}
+body.dark-mode .nav-link:hover:not(.active) {
+    background-color: var(--color-active-bg-dark);
+}
+.nav-link.active {
+    background-color: var(--color-active-bg-light);
+    color: var(--color-active-text-light);
+    font-weight: 700;
+}
+body.dark-mode .nav-link.active {
+    background-color: var(--color-active-bg-dark);
+    color: var(--color-active-text-dark);
+}
+
+/* Footer Sidebar */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-light);
+    font-size: 0.85rem;
+    color: var(--color-text-muted-light);
+    text-align: center;
+}
+body.dark-mode .sidebar-footer {
+    border-top-color: var(--color-border-dark);
+    color: var(--color-text-muted-dark);
+}
+
+/* ===== 4. KONTEN UTAMA (KANAN) ===== */
+.main-content {
+    grid-column: 2 / 3;
+    padding: 4rem; /* Padding lebih besar */
+    overflow-y: auto;
+    height: 100vh;
+    scroll-behavior: smooth; /* Scroll halus di dalam konten */
+}
+
+.page {
+    display: block; /* Selalu block agar bisa dianimasikan */
+    opacity: 0; /* Mulai transparan */
+    visibility: hidden; /* Sembunyikan dari interaksi */
+    transform: translateY(20px); /* Mulai sedikit di bawah */
+    position: absolute; /* Tumpuk semua halaman di satu tempat */
+    width: 100%;
+    /* Atur transisi default (meskipun GSAP akan menimpanya) */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.page.active {
+    /* State aktif dikelola oleh GSAP, bukan CSS */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    position: relative; /* Hanya halaman aktif yang mengambil ruang */
+}
+
+/* Kita perlu sedikit penyesuaian pada main-content */
+.main-content {
+    /* ... style Anda yang ada ... */
+    position: relative; /* Diperlukan agar .page absolute berfungsi */
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-light);
+}
+body.dark-mode .page-title {
+    color: var(--color-text-dark);
+}
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-muted-light);
+    margin-bottom: 2.5rem;
+}
+body.dark-mode .page-subtitle {
+    color: var(--color-text-muted-dark);
+}
+.icon-title {
+    margin-right: 0.75rem;
+    color: var(--color-blue-accent);
+}
+
+/* ===== 5. STYLING KONTEN HALAMAN ===== */
+.section-paragraph {
+    font-size: 1.05rem; /* Sedikit lebih besar */
+    color: var(--color-text-muted-light);
+    margin-bottom: 1.25rem;
+    max-width: 800px;
+    line-height: 1.7;
+}
+body.dark-mode .section-paragraph {
+    color: var(--color-text-muted-dark);
+}
+.section-subheading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border-light);
+}
+body.dark-mode .section-subheading {
+    color: var(--color-text-dark);
+    border-bottom-color: var(--color-border-dark);
+}
+
+/* --- Teks Hero di Halaman Home --- */
+.home-hero-text {
+    padding-top: 1rem; 
+    max-width: 800px;
+}
+.home-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+body.dark-mode .home-title {
+    color: var(--color-text-dark);
+}
+.home-subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-text-muted-light);
+    margin-bottom: 2.5rem;
+}
+body.dark-mode .home-subtitle {
+    color: var(--color-text-muted-dark);
+}
+.home-description {
+    font-size: 1.1rem;
+    color: var(--color-text-muted-light);
+    line-height: 1.7;
+}
+body.dark-mode .home-description {
+    color: var(--color-text-muted-dark);
+}
+.skills-section-home {
+    margin-top: 5rem; 
+}
+.skill-card-modern svg { width: 3.5rem; height: 3.5rem; }
+
+/* --- Skills Grid (Glassmorphism) --- */
+.skills-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+.skill-card-modern {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--color-border-light);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-medium);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .skill-card-modern {
+    background: rgba(45, 45, 47, 0.5);
+    border: 1px solid var(--color-border-dark);
+}
+.skill-card-modern i {
+    font-size: 3.5rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 1;
+    transform: scale(1);
+}
+.skill-card-modern .skill-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+body.dark-mode .skill-card-modern .skill-name {
+    color: var(--color-text-dark);
+}
+.skill-card-modern:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: var(--color-blue-accent);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .skill-card-modern:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.skill-card-modern:hover i {
+    opacity: 0;
+    transform: scale(0.8);
+}
+.skill-card-modern:hover .skill-name {
+    opacity: 1;
+    transform: scale(1);
+}
+.skill-card-modern.color-react i    { color: #61DAFB; }
+.skill-card-modern.color-node i     { color: #8CC84B; }
+.skill-card-modern.color-laravel i  { color: #FF2D20; }
+.skill-card-modern.color-js i       { color: #F7DF1E; }
+.skill-card-modern.color-ts svg     { fill: #007ACC; }
+.skill-card-modern.color-php i      { color: #777BB4; }
+.skill-card-modern.color-python i   { color: #3776AB; }
+.skill-card-modern.color-bootstrap i{ color: #7952B3; }
+.skill-card-modern.color-figma i    { color: #F24E1E; }
+.skill-card-modern.color-git i      { color: #F05033; }
+.skill-card-modern.color-github i   { color: #1D1D1F; }
+body.dark-mode .skill-card-modern.color-github i { color: #F5F5F7; }
+.skill-card-modern.color-sass i     { color: #CC6699; }
+
+/* --- GitHub Section --- */
+.github-section-home {
+    margin-top: 5rem;
+}
+.stat-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    padding: 1.5rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .stat-card {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-dark);
+}
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted-light);
+}
+body.dark-mode .stat-label {
+    color: var(--color-text-muted-dark);
+}
+.stat-value {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-top: 0.5rem;
+}
+body.dark-mode .stat-value {
+    color: var(--color-text-dark);
+}
+.stat-value small {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-text-muted-light);
+}
+body.dark-mode .stat-value small {
+    color: var(--color-text-muted-dark);
+}
+.contribution-graph-container {
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .contribution-graph-container {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.contribution-graph-placeholder {
+    width: 100%;
+    border-radius: var(--radius-small);
+    filter: invert(0);
+}
+body.dark-mode .contribution-graph-placeholder {
+    filter: invert(1) hue-rotate(180deg);
+}
+.contribution-legend {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted-light);
+}
+body.dark-mode .contribution-legend {
+    color: var(--color-text-muted-dark);
+}
+.legend-colors {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+.color-box {
+    width: 12px;
+    height: 12px;
+    background-color: var(--color);
+    border-radius: 2px;
+}
+
+/* --- Halaman About (Bento Grid Baru) --- */
+.bento-grid-services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+.bento-card {
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-large);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    grid-column: var(--grid-col, span 1);
+    grid-row: var(--grid-row, span 1);
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .bento-card {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.bento-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-blue-accent);
+    box-shadow: var(--shadow-dark);
+}
+.service-icon-modern {
+    font-size: 2.2rem;
+    color: var(--color-blue-accent);
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+.service-text-modern h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-light);
+}
+body.dark-mode .service-text-modern h4 {
+    color: var(--color-text-dark);
+}
+.service-text-modern p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted-light);
+}
+body.dark-mode .service-text-modern p {
+    color: var(--color-text-muted-dark);
+}
+
+/* --- Halaman Achievements (Resume Timeline) --- */
+.resume-timeline {
+    position: relative;
+    margin-top: 2rem;
+}
+.resume-item {
+    padding: 1.5rem;
+    padding-left: 3rem; /* Lebih banyak ruang */
+    margin-bottom: 1.5rem;
+    background-color: transparent; /* Hapus background kartu */
+    border: none;
+    border-left: 3px solid var(--color-border-light); /* Garis timeline utama */
+    border-radius: 0;
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+body.dark-mode .resume-item {
+    background-color: transparent;
+    border-left-color: var(--color-border-dark);
+}
+.resume-item:hover {
+    border-left-color: var(--color-blue-accent);
+}
+.resume-item::before { /* Sembunyikan garis putus-putus lama */
+    display: none;
+}
+.resume-item::after { /* Ganti titik */
+    content: '';
+    position: absolute;
+    left: -9px; /* Posisikan di atas garis */
+    top: 28px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--color-blue-accent);
+    border: 3px solid var(--color-bg-light);
+    transition: transform 0.3s ease;
+}
+body.dark-mode .resume-item::after {
+    border-color: var(--color-bg-dark);
+}
+.resume-item:hover::after {
+    transform: scale(1.1);
+}
+.resume-date {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted-light);
+    margin-bottom: 0.5rem;
+}
+body.dark-mode .resume-date {
+    color: var(--color-text-muted-dark);
+}
+.resume-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+}
+body.dark-mode .resume-title {
+    color: var(--color-text-dark);
+}
+.resume-company {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-blue-accent);
+    margin-bottom: 0.5rem;
+}
+.resume-item p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted-light);
+}
+body.dark-mode .resume-item p {
+    color: var(--color-text-muted-dark);
+}
+
+/* --- Halaman Projects (Portfolio Grid) --- */
+.portfolio-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.portfolio-item-modern {
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .portfolio-item-modern {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.portfolio-item-modern:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-dark);
+}
+.portfolio-item-modern img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.portfolio-item-modern:hover img {
+    transform: scale(1.05);
+}
+.portfolio-info {
+    padding: 1.5rem;
+}
+.portfolio-info h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+}
+body.dark-mode .portfolio-info h4 {
+    color: var(--color-text-dark);
+}
+.portfolio-info p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted-light);
+    margin-bottom: 1rem;
+}
+body.dark-mode .portfolio-info p {
+    color: var(--color-text-muted-dark);
+}
+.portfolio-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-blue-accent);
+}
+.portfolio-link i {
+    margin-left: 0.3rem;
+    transition: transform 0.3s ease;
+}
+.portfolio-link:hover i {
+    transform: translateX(5px);
+}
+
+/* --- Halaman Contact --- */
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.contact-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.contact-info-card {
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+body.dark-mode .contact-info-card {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.contact-info-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-blue-accent);
+}
+.contact-info-card i {
+    font-size: 2rem;
+    color: var(--color-blue-accent);
+    margin-bottom: 1rem;
+}
+.contact-info-card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--color-text-light);
+}
+body.dark-mode .contact-info-card h4 {
+    color: var(--color-text-dark);
+}
+.contact-info-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted-light);
+    margin-bottom: 0.5rem;
+}
+body.dark-mode .contact-info-card p {
+    color: var(--color-text-muted-dark);
+}
+.contact-info-card a {
+    font-weight: 500;
+    color: var(--color-blue-accent);
+}
+.contact-form-modern {
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .contact-form-modern {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted-light);
+}
+body.dark-mode .form-group label {
+    color: var(--color-text-muted-dark);
+}
+.contact-form-modern input,
+.contact-form-modern textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-small);
+    color: var(--color-text-light);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+body.dark-mode .contact-form-modern input,
+body.dark-mode .contact-form-modern textarea {
+    background-color: var(--color-bg-dark);
+    border-color: var(--color-border-dark);
+    color: var(--color-text-dark);
+}
+.contact-form-modern input:focus,
+.contact-form-modern textarea:focus {
+    outline: none;
+    border-color: var(--color-blue-accent);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+.submit-button-modern {
+    background-color: var(--color-blue-accent);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-small);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+.submit-button-modern:hover {
+    opacity: 0.8;
+}
+
+/* --- Halaman Chat Room --- */
+.chatroom-placeholder {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    margin-top: 2rem;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .chatroom-placeholder {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+.chatroom-placeholder i {
+    font-size: 4rem;
+    color: var(--color-blue-accent);
+    margin-bottom: 1.5rem;
+}
+.chatroom-placeholder .page-title {
+    margin-bottom: 0.5rem;
+}
+
+/* ===== 10. RESPONSIVE (MOBILE) ===== */
+.mobile-menu-toggle {
+    display: none; /* Sembunyi di desktop */
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    color: var(--color-text-light);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .mobile-menu-toggle {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+    color: var(--color-text-dark);
+}
+
+@media (max-width: 1024px) {
+    .portfolio-layout {
+        grid-template-columns: 1fr; /* 1 kolom penuh di mobile */
+    }
+    
+    .sidebar {
+        width: 300px; /* Sidebar overlay, bukan full-width */
+        transform: translateX(-100%);
+        transition: transform 0.4s ease;
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    /* Overlay gelap di belakang sidebar */
+    .sidebar.active::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 300px;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 99;
+    }
+    
+    .main-content {
+        grid-column: 1 / 2;
+        padding: 1.5rem;
+        padding-top: 5rem;
+        height: auto;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+    }
+    .home-title {
+        font-size: 2.8rem;
+    }
+    .section-subheading {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+        padding-top: 5rem;
+    }
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+    .bento-grid-services {
+        grid-template-columns: 1fr;
+    }
+    /* Reset bento span */
+    .bento-card {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    .portfolio-grid-modern {
+        grid-template-columns: 1fr;
+    }
+    .stat-card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .page-title {
+        font-size: 2rem;
+    }
+    .home-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 90%;
+    }
+    .sidebar.active::after {
+        left: 90%;
+    }
+    .skills-grid-modern {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+    .skill-card-modern i,
+    .skill-card-modern svg {
+        font-size: 2.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .skill-card-modern .skill-name {
+        font-size: 0.9rem;
+    }
+}
+/* ===== 11. CHAT ROOM STYLING (BARU) ===== */
+.chat-room-layout {
+    display: flex;
+    flex-direction: column;
+    height: 60vh; /* Tentukan tinggi area chat */
+    max-height: 700px;
+    background-color: var(--color-sidebar-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+body.dark-mode .chat-room-layout {
+    background-color: var(--color-sidebar-dark);
+    border-color: var(--color-border-dark);
+}
+
+.chat-display {
+    flex-grow: 1; /* Mengisi ruang yang tersedia */
+    padding: 1.5rem;
+    overflow-y: auto; /* Scrollbar jika pesan penuh */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Styling Balon Chat */
+.chat-bubble {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-large);
+    max-width: 75%;
+    line-height: 1.5;
+    animation: popIn 0.3s ease;
+}
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Pesan dari 'Bot' (kiri) */
+.chat-bubble.bot {
+    background-color: var(--chat-bubble-bot-light);
+    color: var(--color-text-light);
+    border-bottom-left-radius: var(--radius-small);
+    align-self: flex-start;
+}
+body.dark-mode .chat-bubble.bot {
+    background-color: var(--chat-bubble-bot-dark);
+    color: var(--color-text-dark);
+}
+
+/* Pesan dari 'User' (kanan) */
+.chat-bubble.user {
+    background-color: var(--chat-bubble-user-light);
+    color: #FFFFFF;
+    border-bottom-right-radius: var(--radius-small);
+    align-self: flex-end;
+}
+body.dark-mode .chat-bubble.user {
+    background-color: var(--chat-bubble-user-dark);
+}
+
+.chat-bubble .timestamp {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.25rem;
+}
+.chat-bubble.user .timestamp {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Form Input Chat */
+.chat-form-modern {
+    border-top: 1px solid var(--color-border-light);
+    padding: 1rem 1.5rem;
+    background-color: var(--color-sidebar-light);
+}
+body.dark-mode .chat-form-modern {
+    border-top-color: var(--color-border-dark);
+    background-color: var(--color-sidebar-dark);
+}
+
+.chat-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#chat-input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-small);
+    color: var(--color-text-light);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+body.dark-mode #chat-input {
+    background-color: var(--color-bg-dark);
+    border-color: var(--color-border-dark);
+    color: var(--color-text-dark);
+}
+#chat-input:focus {
+    outline: none;
+    border-color: var(--color-blue-accent);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+.chat-send-btn {
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    background-color: var(--color-blue-accent);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-small);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.chat-send-btn:hover {
+    opacity: 0.8;
+}
+.chat-send-btn i {
+    transform: translateX(1px); /* Pusatkan ikon */
+}
+
+.chat-clear-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted-light);
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 0.75rem;
+    transition: color 0.3s ease;
+}
+body.dark-mode .chat-clear-btn {
+    color: var(--color-text-muted-dark);
+}
+.chat-clear-btn:hover {
+    color: var(--color-blue-accent);
+}
